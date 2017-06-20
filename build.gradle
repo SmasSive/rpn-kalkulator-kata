@@ -18,6 +18,13 @@ repositories {
     mavenCentral()
 }
 
+final def junitVersion = '4.12'
+final def assertJVersion = '3.8.0'
+final def mockitoVersion = '2.8.9'
+
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
+    testCompile group: 'junit', name: 'junit', version: junitVersion
+    testCompile group: 'org.assertj', name: 'assertj-core', version: assertJVersion
+    testCompile group: 'org.mockito', name: 'mockito-core', version: mockitoVersion
 }
