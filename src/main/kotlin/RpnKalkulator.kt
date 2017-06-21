@@ -1,5 +1,51 @@
+import java.util.ArrayList
+import javax.naming.OperationNotSupportedException
+
 class RpnKalkulator {
+
+    companion object {
+        private val operations = arrayListOf("+", "-", "*", "/")
+    }
+
+    var elementStack = arrayListOf<Int>()
+
     fun calculate(input: String): String {
-        return input
+        input.split(" ").map { unparsedElement -> parse(unparsedElement) }
+        return elementStack[0].toString()
+    }
+
+    private fun parse(unparsedElement: String) {
+        if (isNumber(unparsedElement)) {
+            elementStack.add(unparsedElement.toInt())
+        } else if (isOperand(unparsedElement)) {
+            elementStack.add(calculate(elementStack.pop(), elementStack.pop(), unparsedElement))
+        }
+    }
+
+    private fun calculate(second: Int?, first: Int?, operation: String) = when (operation) {
+        "+" -> first!! + second!!
+        "-" -> first!! - second!!
+        "*" -> first!! * second!!
+        "/" -> first!! / second!!
+        else -> throw OperationNotSupportedException()
+    }
+
+    private fun isNumber(unparsedElement: String): Boolean {
+        try {
+            unparsedElement.toInt()
+        } catch (nfe: NumberFormatException) {
+            return false
+        }
+        return true
+    }
+
+    private fun isOperand(unparsedElement: String): Boolean = operations.contains(unparsedElement)
+}
+
+private fun <E> ArrayList<E>.pop(): E? {
+    if (this.isEmpty()) {
+        return null
+    } else {
+        return removeAt(size - 1)
     }
 }
