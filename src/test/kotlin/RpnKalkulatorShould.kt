@@ -9,11 +9,13 @@ class RpnKalkulatorShould {
         val TWO_DIGIT_INPUT = "20 5 /"
         val TWO_OPERATIONS_INPUT = "4 2 + 3 -"
         val THREE_OPERATIONS_INPUT = "3 5 8 * 7 + *"
+        val FOUR_DIGITS_ONE_OPERATION_INPUT = "7 2 - 3 4"
 
         val ONE_DIGIT_OUTPUT = "1"
         val TWO_DIGIT_OUTPUT = "4"
         val TWO_OPERATIONS_OUTPUT = "3"
         val THREE_OPERATIONS_OUTPUT = "141"
+        val FOUR_DIGITS_ONE_OPERATION_OUTPUT = "5 3 4"
     }
 
     lateinit var rpnKalkulator : RpnKalkulator
@@ -49,5 +51,12 @@ class RpnKalkulatorShould {
         val result = rpnKalkulator.calculate(THREE_OPERATIONS_INPUT)
 
         assertEquals(THREE_OPERATIONS_OUTPUT, result)
+    }
+
+    @Test
+    fun return_operation_result_for_four_digits_and_one_operation() {
+        val result = rpnKalkulator.calculate(FOUR_DIGITS_ONE_OPERATION_INPUT)
+
+        assertEquals(FOUR_DIGITS_ONE_OPERATION_OUTPUT, result)
     }
 }

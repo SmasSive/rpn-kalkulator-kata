@@ -11,7 +11,7 @@ class RpnKalkulator {
 
     fun calculate(input: String): String {
         input.split(" ").map { unparsedElement -> parse(unparsedElement) }
-        return elementStack[0].toString()
+        return elementStack.format()
     }
 
     private fun parse(unparsedElement: String) {
@@ -48,4 +48,17 @@ private fun <E> ArrayList<E>.pop(): E? {
     } else {
         return removeAt(size - 1)
     }
+}
+
+private fun <E> ArrayList<E>.format(): String {
+    var output = ""
+    var index = size
+    for (element in this) {
+        output += element.toString()
+        index--
+        if (index > 0) {
+            output += " "
+        }
+    }
+    return output
 }
